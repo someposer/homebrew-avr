@@ -36,7 +36,7 @@ class AvrLibc < Formula
 
     # Pull in the latest Atmel headers.
     AtmelHeaders.new.brew do
-      cp Dir['io[0-9a-zA-Z]*.h'], 'avr-libc/include/avr/'
+      cp Dir['io[0-9a-zA-Z]*.h'], buildpath/'include/avr/'
     end
 
     # Run the bootstrap script to pull in any changes.
