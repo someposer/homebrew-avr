@@ -1,9 +1,5 @@
 require 'formula'
 
-def nocxx?
-  ARGV.include? '--disable-cxx'
-end
-
 # print avr-gcc's builtin include paths
 # `avr-gcc -print-prog-name=cc1plus` -v
 
