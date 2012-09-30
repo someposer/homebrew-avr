@@ -15,8 +15,6 @@ class AvrBinutils < Formula
   depends_on 'autoconf264'
   depends_on :automake
 
-  option 'disable-libbfd', 'Disable installation of libbfd.'
-
   def patches
     mkdir buildpath/'patches'
     AtmelPatches.new.brew { cp Dir['binutils/*'], buildpath/'patches' }
@@ -25,26 +23,15 @@ class AvrBinutils < Formula
 
   def install
 
-    if MacOS.lion?
-      ENV['CC'] = 'clang'
-    end
-
     ENV['CPPFLAGS'] = "-I#{include}"
 
     args = ["--prefix=#{prefix}",
             "--infodir=#{info}",
             "--mandir=#{man}",
             "--disable-werror",
-            "--disable-nls"]
-
-    unless ARGV.include? '--disable-libbfd'
-      Dir.chdir "bfd" do
-        ohai "building libbfd"
-        system "./configure", "--enable-install-libbfd", *args
-        system "make"
-        system "make install"
-      end
-    end
+            "--disable-nls",
+            "--enable-install-libiberty",
+            "--enable-install-libbfd"]
 
     # brew's build environment is in our way
     ENV.delete 'CFLAGS'
@@ -60,7 +47,8 @@ class AvrBinutils < Formula
     # Pick up any autotools changes.
     ENV['AUTOCONF'] = '/usr/local/bin/autoconf264'
     ENV['AUTOM4TE'] = '/usr/local/bin/autom4te264'
-    system "autoreconf", ".", "ld"
+    system "autoconf"
+    system "autoreconf", "ld"
 
     system "./configure", "--target=avr", *args
 
