@@ -12,7 +12,7 @@ class AvrGcc < Formula
   url 'http://ftp.gnu.org/gnu/gcc/gcc-4.6.2/gcc-4.6.2.tar.bz2'
   sha1 '691974613b1c1f15ed0182ec539fa54a12dd6f93'
 
-  depends_on 'larsimmisch/avr/avr-binutils'
+  depends_on 'avr-binutils'
   depends_on 'gmp'
   depends_on 'libmpc'
   depends_on 'mpfr'
