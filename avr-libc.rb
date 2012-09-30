@@ -39,6 +39,9 @@ class AvrLibc < Formula
       cp Dir['io[0-9a-zA-Z]*.h'], 'avr-libc/include/avr/'
     end
 
+    # Run the bootstrap script to pull in any changes.
+    system "./bootstrap"
+
     avr_gcc = Formula.factory('larsimmisch/avr/avr-gcc')
     build = `./config.guess`.chomp
     system "./configure", "--build=#{build}", "--prefix=#{prefix}", "--host=avr"
