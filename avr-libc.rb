@@ -1,11 +1,24 @@
 require 'formula'
 
+# Atmel distributes a complete tarball of patches.
+class AtmelPatches < Formula
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1/avr/avr-patches.tar.gz'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  sha1 '59a139a42c8dada06fa5e3ebbd3d37f8d16b0d11'
+end
+
 class AvrLibc < Formula
   url 'http://download.savannah.gnu.org/releases/avr-libc/avr-libc-1.8.0.tar.bz2'
   homepage 'http://www.nongnu.org/avr-libc/'
   md5 '54c71798f24c96bab206be098062344f'
 
   depends_on 'avr-gcc'
+
+  def patches
+    mkdir buildpath/'patches'
+    AtmelPatches.new.brew { cp Dir['avr-libc/*'], buildpath/'patches' }
+    { :p0 => Dir[buildpath/'patches/*'] }
+  end
 
   def install
     # brew's build environment is in our way
