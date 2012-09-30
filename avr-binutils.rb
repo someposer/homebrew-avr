@@ -52,6 +52,11 @@ class AvrBinutils < Formula
 
     system "./configure", "--target=avr", *args
 
+    system "make", "all-bfd", "TARGET-bfd=headers"
+    rm 'bfd/Makefile'
+
+    system "make", "configure-host"
+
     system "make"
     system "make install"
   end
