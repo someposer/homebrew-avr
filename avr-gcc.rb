@@ -17,11 +17,7 @@ class AvrGcc < Formula
   depends_on 'libmpc'
   depends_on 'mpfr'
 
-  def options
-    [
-     ['--disable-cxx', 'Don\'t build the g++ compiler'],
-    ]
-  end
+  option 'disable-cxx', "Don't build the g++ compiler"
 
   # Dont strip compilers.
   skip_clean :all
@@ -63,7 +59,7 @@ class AvrGcc < Formula
 
     # The C compiler is always built, C++ can be disabled
     languages = %w[c]
-    languages << 'c++' unless nocxx?
+    languages << 'c++' unless build.include? 'disable-cxx'
 
     Dir.mkdir 'build'
     Dir.chdir 'build' do
