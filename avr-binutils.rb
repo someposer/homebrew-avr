@@ -5,9 +5,7 @@ class AvrBinutils < Formula
   homepage 'http://www.gnu.org/software/binutils/binutils.html'
   md5 'ee0f10756c84979622b992a4a61ea3f5'
 
-  def options
-    [["--disable-libbfd", "Disable installation of libbfd."]]
-  end
+  option 'disable-libbfd', 'Disable installation of libbfd.'
 
   def install
 
