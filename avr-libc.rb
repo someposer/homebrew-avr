@@ -42,15 +42,26 @@ class AvrLibc < Formula
     # Run the bootstrap script to pull in any changes.
     system "./bootstrap"
 
-    avr_gcc = Formula.factory('larsimmisch/avr/avr-gcc')
-    build = `./config.guess`.chomp
-    system "./configure", "--build=#{build}", "--prefix=#{prefix}", "--host=avr"
-    system "make install"
-    avr = File.join prefix, 'avr'
-    # copy include and lib files where avr-gcc searches for them
-    # this wouldn't be necessary with a standard prefix
-    ohai "copying #{avr} -> #{avr_gcc.prefix}"
-    cp_r avr, avr_gcc.prefix
+    args = [
+            "--host=avr",
+            "--prefix=#{prefix}",
+            "--libdir=#{prefix}/lib",
+            "--datadir=#{prefix}"
+           ]
+
+    system "./configure", *args
+
+    system "make", "install"
+
+    # XXX #avr_gcc = Formula.factory('larsimmisch/avr/avr-gcc')
+    # XXX #build = `./config.guess`.chomp
+    # XXX #system "./configure", "--build=#{build}", "--prefix=#{prefix}", "--host=avr"
+    # XXX #system "make install"
+    # XXX #avr = File.join prefix, 'avr'
+    # XXX ## copy include and lib files where avr-gcc searches for them
+    # XXX ## this wouldn't be necessary with a standard prefix
+    # XXX #ohai "copying #{avr} -> #{avr_gcc.prefix}"
+    # XXX #cp_r avr, avr_gcc.prefix
   end
 end
 
