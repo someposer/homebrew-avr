@@ -46,6 +46,7 @@ class AvrGcc < Formula
     end
 
     args = [
+            "LDFLAGS=-L#{prefix}/lib",
             "--target=avr",
             "--with-dwarf2",
             "--disable-shared",
