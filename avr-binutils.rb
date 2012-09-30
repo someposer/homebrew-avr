@@ -12,6 +12,9 @@ class AvrBinutils < Formula
   homepage 'http://www.gnu.org/software/binutils/binutils.html'
   md5 'ee0f10756c84979622b992a4a61ea3f5'
 
+  depends_on 'autoconf264'
+  depends_on :automake
+
   option 'disable-libbfd', 'Disable installation of libbfd.'
 
   def patches
@@ -53,6 +56,11 @@ class AvrBinutils < Formula
     if MacOS.lion?
       ENV['CC'] = 'clang'
     end
+
+    # Pick up any autotools changes.
+    ENV['AUTOCONF'] = '/usr/local/bin/autoconf264'
+    ENV['AUTOM4TE'] = '/usr/local/bin/autom4te264'
+    system "autoreconf", ".", "ld"
 
     system "./configure", "--target=avr", *args
 
