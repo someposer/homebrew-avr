@@ -1,5 +1,12 @@
 require 'formula'
 
+# Atmel distributes a complete tarball of patches.
+class AtmelPatches < Formula
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1/avr/avr-patches.tar.gz'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  sha1 '59a139a42c8dada06fa5e3ebbd3d37f8d16b0d11'
+end
+
 # print avr-gcc's builtin include paths
 # `avr-gcc -print-prog-name=cc1plus` -v
 
@@ -17,6 +24,12 @@ class AvrGcc < Formula
 
   # Dont strip compilers.
   skip_clean :all
+
+  def patches
+    mkdir buildpath/'patches'
+    AtmelPatches.new.brew { cp Dir['gcc/*'], buildpath/'patches' }
+    { :p0 => Dir[buildpath/'patches/*'] }
+  end
 
   def install
     gmp = Formula.factory 'gmp'
