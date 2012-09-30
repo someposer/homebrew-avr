@@ -7,7 +7,7 @@ class AtmelPatches < Formula
   sha1 '59a139a42c8dada06fa5e3ebbd3d37f8d16b0d11'
 end
 
-class AtemlHeaders < Formula
+class AtmelHeaders < Formula
   url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1/avr/avr-headers-3.2.3.970.zip'
   sha1 '2e8c236e8b10892daf63703fea71172af14f0e11'
 end
