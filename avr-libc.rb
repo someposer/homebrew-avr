@@ -7,6 +7,12 @@ class AtmelPatches < Formula
   sha1 '59a139a42c8dada06fa5e3ebbd3d37f8d16b0d11'
 end
 
+class AtemlHeaders < Formula
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1/avr/avr-headers-3.2.3.970.zip'
+  sha1 '2e8c236e8b10892daf63703fea71172af14f0e11'
+end
+
+
 class AvrLibc < Formula
   url 'http://download.savannah.gnu.org/releases/avr-libc/avr-libc-1.8.0.tar.bz2'
   homepage 'http://www.nongnu.org/avr-libc/'
@@ -27,6 +33,11 @@ class AvrLibc < Formula
     ENV.delete 'LD'
     ENV.delete 'CC'
     ENV.delete 'CXX'
+
+    # Pull in the latest Atmel headers.
+    AtmelHeaders.new.brew do
+      cp Dir['io[0-9a-zA-Z]*.h'], 'avr-libc/include/avr/'
+    end
 
     avr_gcc = Formula.factory('larsimmisch/avr/avr-gcc')
     build = `./config.guess`.chomp
