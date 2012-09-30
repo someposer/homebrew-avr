@@ -22,9 +22,6 @@ class AvrGcc < Formula
 
   option 'disable-cxx', "Don't build the g++ compiler"
 
-  # Dont strip compilers.
-  skip_clean :all
-
   def patches
     mkdir buildpath/'patches'
     AtmelPatches.new.brew { cp Dir['gcc/*'], buildpath/'patches' }
