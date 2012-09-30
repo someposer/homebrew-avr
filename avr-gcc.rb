@@ -50,9 +50,11 @@ class AvrGcc < Formula
 
     args = [
             "--target=avr",
+            "--with-dwarf2",
+            "--disable-shared",
+            "--disable-libada",
             "--disable-libssp",
             "--disable-nls",
-            "--with-dwarf2",
             # Sandbox everything...
             "--prefix=#{prefix}",
             "--with-gmp=#{gmp.prefix}",
@@ -63,12 +65,19 @@ class AvrGcc < Formula
             # ...and the binaries...
             "--bindir=#{bin}",
             # This shouldn't be necessary
-            "--with-as=/usr/local/bin/avr-as"
+            "--with-as=/usr/local/bin/avr-as",
+            # Not sure if this is really needed.
+            "--enable-fixed-point"
            ]
 
     # The C compiler is always built, C++ can be disabled
     languages = %w[c]
     languages << 'c++' unless build.include? 'disable-cxx'
+
+    # Pick up any autotools changes.
+    ENV['AUTOCONF'] = '/usr/local/bin/autoconf264'
+    ENV['AUTOM4TE'] = '/usr/local/bin/autom4te264'
+    system "autoconf"
 
     Dir.mkdir 'build'
     Dir.chdir 'build' do
