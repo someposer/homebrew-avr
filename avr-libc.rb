@@ -8,8 +8,8 @@ class AtmelPatches < Formula
 end
 
 class AtmelHeaders < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1/avr/avr-headers-3.2.3.970.zip'
-  sha1 '2e8c236e8b10892daf63703fea71172af14f0e11'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-headers-6.1.0.1157.zip'
+  sha1 '633d7e8c93d54579b21bb3a76721b1d88572d677'
 end
 
 
