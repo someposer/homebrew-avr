@@ -4,7 +4,7 @@ This repository contains the Atmel version of the GNU AVR toolchain as formulae 
 
 AVR is a popular family of microcontrollers, used for example in the [Arduino](http://arduino.cc) project.
 
-This version was forked from [larsimmisch/homebrew-avr](https://github.com/larsimmisch/homebrew-avr), and modified to use the [Atmel 3.4.1 patches](http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1/avr/)
+This version was forked from [larsimmisch/homebrew-avr](https://github.com/larsimmisch/homebrew-avr), and modified to use the [Atmel 3.4.1.830 patches](http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/)
 
 Installing Homebrew-avr Formulae
 --------------------------------
