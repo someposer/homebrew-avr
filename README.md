@@ -8,7 +8,9 @@ This version was forked from [larsimmisch/homebrew-avr](https://github.com/larsi
 
 Installing Homebrew-avr Formulae
 --------------------------------
-Just `brew tap neonquill/homebrew-avr` and then `brew install <formula>`.
+First `brew tap homebrew/versions` to get the homebrew versions tap.
+To get the avr tap `brew tap neonquill/homebrew-avr` and then
+`brew install <formula>`.
 
 To install the entire AVR toolchain, do:
 `brew install avr-libc`
