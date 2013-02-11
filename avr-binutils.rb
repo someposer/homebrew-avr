@@ -1,24 +1,16 @@
 require 'formula'
 
-# Atmel distributes a complete tarball of patches.
-class AtmelPatches < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-patches.tar.gz'
-  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
-  sha1 '08208bdc9ddb6b4b328c1b4c94a2b81f1d750289'
-end
-
 class AvrBinutils < Formula
-  url 'http://ftp.gnu.org/gnu/binutils/binutils-2.22.tar.bz2'
-  homepage 'http://www.gnu.org/software/binutils/binutils.html'
-  md5 'ee0f10756c84979622b992a4a61ea3f5'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-binutils-2.22.tar.gz'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  sha1 '4a0878ddf6dcb86f90e7868ecb79faecebe5a2fb'
 
-  depends_on 'autoconf264'
+  depends_on :autoconf
   depends_on :automake
 
   def patches
-    mkdir buildpath/'patches'
-    AtmelPatches.new.brew { cp Dir['binutils/*'], buildpath/'patches' }
-    { :p0 => Dir[buildpath/'patches/*'] }
+      # Patch the config script to ignore autoconf version
+      DATA
   end
 
   def install
@@ -40,13 +32,10 @@ class AvrBinutils < Formula
     ENV.delete 'CC'
     ENV.delete 'CXX'
 
-    if MacOS.lion?
+    if MacOS.version >= :lion
       ENV['CC'] = 'clang'
     end
 
-    # Pick up any autotools changes.
-    ENV['AUTOCONF'] = '/usr/local/bin/autoconf264'
-    ENV['AUTOM4TE'] = '/usr/local/bin/autom4te264'
     system "autoconf"
     system "autoreconf", "ld"
 
@@ -61,3 +50,19 @@ class AvrBinutils < Formula
     system "make install"
   end
 end
+
+
+__END__
+diff --git a/config/override.m4 b/config/override.m4
+index 52bd1c3..0066780 100644
+--- a/config/override.m4
++++ b/config/override.m4
+@@ -41,7 +41,7 @@ dnl Or for updating the whole tree at once with the definition above.
+ AC_DEFUN([_GCC_AUTOCONF_VERSION_CHECK],
+ [m4_if(m4_defn([_GCC_AUTOCONF_VERSION]),
+   m4_defn([m4_PACKAGE_VERSION]), [],
+-  [m4_fatal([Please use exactly Autoconf ]_GCC_AUTOCONF_VERSION[ instead of ]m4_defn([m4_PACKAGE_VERSION])[.])])
++  [m4_errprintn([Please use exactly Autoconf ]_GCC_AUTOCONF_VERSION[ instead of ]m4_defn([m4_PACKAGE_VERSION])[.])])
+ ])
+ m4_define([AC_INIT], m4_defn([AC_INIT])[
+ _GCC_AUTOCONF_VERSION_CHECK

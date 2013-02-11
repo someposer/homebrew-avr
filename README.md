@@ -4,12 +4,11 @@ This repository contains the Atmel version of the GNU AVR toolchain as formulae 
 
 AVR is a popular family of microcontrollers, used for example in the [Arduino](http://arduino.cc) project.
 
-This version was forked from [larsimmisch/homebrew-avr](https://github.com/larsimmisch/homebrew-avr), and modified to use the [Atmel 3.4.1.830 patches](http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/)
+This version was forked from [larsimmisch/homebrew-avr](https://github.com/larsimmisch/homebrew-avr), and modified to use the [Atmel 3.4.1.830 sources](http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/)
 
 Installing Homebrew-avr Formulae
 --------------------------------
-First `brew tap homebrew/versions` to get the homebrew versions tap.
-To get the avr tap `brew tap neonquill/homebrew-avr` and then
+To get the avr toolchain tap `brew tap someposer/homebrew-avr` and then
 `brew install <formula>`.
 
 To install the entire AVR toolchain, do:
@@ -20,7 +19,7 @@ This will pull in the prerequisites avr-binutils and avr-gcc.
 You can also install via URL:
 
 ```
-brew install https://raw.github.com/larsimmisch/homebrew-avr/master/<formula>.rb
+brew install https://raw.github.com/someposer/homebrew-avr/master/<formula>.rb
 ```
 
 Docs

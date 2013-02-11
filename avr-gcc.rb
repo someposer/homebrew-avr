@@ -1,20 +1,12 @@
 require 'formula'
 
-# Atmel distributes a complete tarball of patches.
-class AtmelPatches < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-patches.tar.gz'
-  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
-  sha1 '08208bdc9ddb6b4b328c1b4c94a2b81f1d750289'
-end
-
-# print avr-gcc's builtin include paths
-# `avr-gcc -print-prog-name=cc1plus` -v
-
 class AvrGcc < Formula
-  homepage 'http://gcc.gnu.org'
-  url 'http://ftp.gnu.org/gnu/gcc/gcc-4.6.2/gcc-4.6.2.tar.bz2'
-  sha1 '691974613b1c1f15ed0182ec539fa54a12dd6f93'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-gcc-4.6.2.tar.gz'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  sha1 '4b38701bf840b94e9d8d4ccac1b9921508935e15'
 
+  depends_on :autoconf
+  depends_on :automake
   depends_on 'avr-binutils'
   depends_on 'gmp'
   depends_on 'libmpc'
@@ -23,9 +15,8 @@ class AvrGcc < Formula
   option 'disable-cxx', "Don't build the g++ compiler"
 
   def patches
-    mkdir buildpath/'patches'
-    AtmelPatches.new.brew { cp Dir['gcc/*'], buildpath/'patches' }
-    { :p0 => Dir[buildpath/'patches/*'] }
+      # Patch the config script to ignore autoconf version
+      DATA
   end
 
   def install
@@ -41,12 +32,12 @@ class AvrGcc < Formula
     ENV.delete 'NM'
     ENV.delete 'RANLIB'
 
-    if MacOS.lion?
-      ENV['CC'] = 'llvm-gcc'
+    if MacOS.version >= :lion
+      ENV['CC'] = 'llvm-gcc' 
     end
 
     args = [
-            "LDFLAGS=-L#{prefix}/lib",
+            "LDFLAGS=-L#{lib}",
             "--target=avr",
             "--with-dwarf2",
             "--disable-shared",
@@ -73,8 +64,6 @@ class AvrGcc < Formula
     languages << 'c++' unless build.include? 'disable-cxx'
 
     # Pick up any autotools changes.
-    ENV['AUTOCONF'] = '/usr/local/bin/autoconf264'
-    ENV['AUTOM4TE'] = '/usr/local/bin/autom4te264'
     system "autoconf"
 
     Dir.mkdir 'build'
@@ -90,4 +79,18 @@ class AvrGcc < Formula
   end
 end
 
- 
+
+__END__
+diff --git a/config/override.m4 b/config/override.m4
+index 52bd1c3..0066780 100644
+--- a/config/override.m4
++++ b/config/override.m4
+@@ -41,7 +41,7 @@ dnl Or for updating the whole tree at once with the definition above.
+ AC_DEFUN([_GCC_AUTOCONF_VERSION_CHECK],
+ [m4_if(m4_defn([_GCC_AUTOCONF_VERSION]),
+   m4_defn([m4_PACKAGE_VERSION]), [],
+-  [m4_fatal([Please use exactly Autoconf ]_GCC_AUTOCONF_VERSION[ instead of ]m4_defn([m4_PACKAGE_VERSION])[.])])
++  [m4_errprintn([Please use exactly Autoconf ]_GCC_AUTOCONF_VERSION[ instead of ]m4_defn([m4_PACKAGE_VERSION])[.])])
+ ])
+ m4_define([AC_INIT], m4_defn([AC_INIT])[
+ _GCC_AUTOCONF_VERSION_CHECK
