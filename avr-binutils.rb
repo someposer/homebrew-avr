@@ -1,9 +1,9 @@
 require 'formula'
 
 class AvrBinutils < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-binutils-2.22.tar.gz'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr-binutils-2.23.2.tar.gz'
   homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
-  sha1 '4a0878ddf6dcb86f90e7868ecb79faecebe5a2fb'
+  sha1 '657174514e56b524f523bfbee4912f2878fca161'
 
   depends_on :autoconf
   depends_on :automake

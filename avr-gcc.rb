@@ -1,9 +1,9 @@
 require 'formula'
 
 class AvrGcc < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-gcc-4.6.2.tar.gz'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr-gcc-4.8.1.tar.gz'
   homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
-  sha1 '4b38701bf840b94e9d8d4ccac1b9921508935e15'
+  sha1 'd394f820c8aada457ada906bfd82829caa4f99e9'
 
   depends_on :autoconf
   depends_on :automake

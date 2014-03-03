@@ -1,15 +1,15 @@
 require 'formula'
 
 class AtmelHeaders < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-headers-6.1.0.1157.zip'
-  sha1 '633d7e8c93d54579b21bb3a76721b1d88572d677'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr8-headers-6.2.0.142.zip'
+  sha1 '82c632cc2b91fed7937f60506bbb83cd0fb1a176'
 end
 
 
 class AvrLibc < Formula
-  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-3.4.1.830/avr/avr-libc-1.8.0.tar.gz'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr-libc-1.8.0.tar.gz'
   homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
-  sha1 '36a74a59b6afda0c62b54a0a0d447d18f73f12c4'
+  sha1 'e600c02c103c82a2b87102c86b65e53b12a37f39'
 
   depends_on :autoconf
   depends_on :automake
